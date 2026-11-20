@@ -29,11 +29,20 @@ public class Main {
            tablero[ranFil][ranCol] = relleno;
         }
     }
-    static void movimiento(char[][]tablero, char item, int posX, int posY, int posAntX,
-                           int posAntY, char jugador,int vias){
+    /*static int movimiento(char[][]tablero, char item, int posX, int posY, int posAntX,
+                           int posAntY, char jugador,int vidas){
         tablero[posY][posX] = jugador;
         tablero[posAntY][posAntX] = item;
-        vidas++;
+        return vidas+1;
+    }*/
+    static boolean revisarFuera(char[][] tablero,int posY, int posX){
+        if (posY <= -1 || posX <= -1 || posY>=tablero.length || posX>=tablero[0].length){
+            System.out.println("Te estas saliendo del limite");
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     public static void main(String[] args) {
         int MAX_FIL_YODA = 10;
@@ -109,7 +118,6 @@ public class Main {
         int vidas = 10;
         Scanner lector = new Scanner(System.in);
         do {
-            System.out.println("EMPIEZA EL JUEGO!!");
             System.out.println("Te mueves en WASD");
             System.out.println("Dime una letra de movimiento !!");
             char mov = lector.next().toLowerCase().charAt(0);
@@ -131,14 +139,7 @@ public class Main {
             }
 
             // Y SI YODA SE SALE DEL TABLERO ??????????????????
-            if(
-                    filaOficialActivo < 0 ||
-                            filaOficialActivo > 9 ||
-                            columnaOficialActivo < 0 ||
-                            columnaOficialActivo > 9
-            ){
-                System.out.println("EHHHHHHHH!!!!!!!!!!!!");
-                System.out.println("LÍMITE DE TABLERO!!!!!!");
+            if (revisarFuera(tableroACTIVO, filaOficialActivo, columnaOficialActivo)){
                 filaOficialActivo = filaAnteriorActivo;
                 columnaOficialActivo = colAnteriorActivo;
 
